@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "rocks.teagantotally.guide.babelfish.services";
+option java_outer_classname = "BabelServiceProto";
+option objc_class_prefix = "HLW";
+
+import "rocks/teagantotally/guide/babelfish/models/values.proto";
+import "rocks/teagantotally/guide/babelfish/models/hitchhiker.proto";
+
+package rocks.teagantotally.guide.babelfish.services;
+
+/**
+ * Service for handling outgoing transmissions
+ */
+service OutgoingTransmissionService {
+  // Remote procedure call for notifying the SubEtha of Ship status
+  rpc NotifyShipStatus(rocks.teagantotally.guide.babelfish.models.Fleet)
+      returns (rocks.teagantotally.guide.babelfish.models.IntergalacticMessage);
+
+  // Remote procedure call for notifying the SubEtha of Hitchhiker status
+  rpc NotifyHitchhikerStatus(rocks.teagantotally.guide.babelfish.models.PeskyStowaways)
+      returns (rocks.teagantotally.guide.babelfish.models.IntergalacticMessage);
+
+  // Send a transmission into the void
+  rpc Broadcast(rocks.teagantotally.guide.babelfish.models.IntergalacticMessage)
+      returns (rocks.teagantotally.guide.babelfish.models.IntergalacticMessage);
+};
+
+/**
+ * Service for handling incoming transmissions
+ */
+service IncomingTransmissionService {
+  // Remote procedure call when a message is received
+  rpc MessageReceived(rocks.teagantotally.guide.babelfish.models.IntergalacticMessage)
+      returns (rocks.teagantotally.guide.babelfish.models.IntergalacticMessage);
+}
