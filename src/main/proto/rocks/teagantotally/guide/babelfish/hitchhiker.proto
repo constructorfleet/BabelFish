@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package rocks.teagantotally.guide.babelfish;
+
+import "rocks/teagantotally/guide/babelfish/values.proto";
+
+// Java
+option java_package = "rocks.teagantotally.guide.babelfish";
+option java_outer_classname = "HitchhikerProto";
+
+// C#
+option csharp_namespace = "rocks.teagantotally.guide.babelfish";
+
+/**
+ * Represents a Hitchhiker on the SubEtha network
+ */
+message Hitchhiker {
+  string name = 1; // Holds the name of the Hitchhiker
+  string uuid = 2; // Holds the UUID of the Hitchhiker
+  string shipUUID = 3; // Ship's intergalactic registration number
+  bool isHoopy = 4; // Flag for if th Hitchhiker is still out there
+
+  /**
+   * Information describing the Hitchhiker's towel
+   */
+  message Towel {
+    string type = 1; // How many towels are there?
+    string uuid = 2; // Claim number for coat check
+    string hikerUUID = 3; // Identifier of the owner of the towel
+    repeated rocks.teagantotally.guide.babelfish.KeyValuePair attributes = 4; // A list of special attributes
+  };
+};
+
+/**
+ * Represents the ship the hitchhiker snuck on to
+ */
+message Ship {
+  string name = 1; // Holds the name of the ship
+  string uuid = 2; // Holds the intergalactic registration number of the ship
+  MakeModel makeModel = 3; // Holds the manufacturing information for the shipt
+  RFSignal signal = 4; // Holds the direction of data flow
+  repeated rocks.teagantotally.guide.babelfish.KeyValuePair attributes = 5; // A list of special attributes
+  repeated Hitchhiker hitchhikers = 6;
+
+  /**
+   * Represents the manufacturing information for the ship
+   */
+  message MakeModel {
+    string make = 1;
+    string model = 2;
+  }
+
+  /**
+   * Represents the direction of data flow
+   */
+  enum RFSignal {
+    DEAD = 0; // Ship is out of commission
+    TRANSMITTING = 1; // Data is being transmitted
+    RECEIVING = 2; // Data must be requested
+    ENTANGLED = 3; // Data is flowing to and from the ship
+  };
+};

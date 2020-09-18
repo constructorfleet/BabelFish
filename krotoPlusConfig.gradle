@@ -1,0 +1,56 @@
+
+apply plugin: "com.github.marcoferrer.kroto-plus"
+
+krotoPlus {
+    config {
+        //noinspection GroovyAssignabilityCheck
+        main {
+            protoBuilders {
+                filter {
+                    addExcludePath("google/*")
+                }
+                unwrapBuilders = true
+                useDslMarkers = true
+            }
+
+            grpcStubExts {
+                supportCoroutines = true
+            }
+            grpcCoroutines()
+        }
+    }
+
+}
+
+protobuf {
+    protoc { artifact = "com.google.protobuf:protoc:${versions.protobuf}" }
+
+    generatedFilesBaseDir = "$buildDir/generated-sources"
+
+    //noinspection GroovyAssignabilityCheck
+    plugins {
+        grpc { artifact = "io.grpc:protoc-gen-grpc-java:${versions.grpc}" }
+        kroto {
+            artifact = "com.github.marcoferrer.krotoplus:protoc-gen-kroto-plus:${versions.krotoplus}"
+        }
+    }
+
+    generateProtoTasks {
+        all().each { task ->
+            // If we're using precompiled scripts for improved performance then we
+            // should depend on the jar task for our scripts
+            task.dependsOn ':kp-scripts:jar'
+
+            task.plugins {
+                grpc { outputSubDir = "java" }
+                kroto {
+                    // The extendable-messages generator needs the outputSubDir
+                    // to be the same as 'task.builtins.java.outputSubDir' since
+                    // it relies on the insertion_point api from protoc.
+                    outputSubDir = "java"
+                    option krotoPlus.config.main.asOption()
+                }
+            }
+        }
+    }
+}

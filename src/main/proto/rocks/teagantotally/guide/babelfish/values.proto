@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+import "google/protobuf/any.proto";
+
+package rocks.teagantotally.guide.babelfish;
+
+/**
+ * Attribute name-value pair
+ */
+message KeyValuePair {
+  google.protobuf.Any key = 1; // The attribute key
+  repeated google.protobuf.Any value = 2; // The values associated with the attribute
+
+  /**
+   * Holds the value information for an Attribute
+   */
+  message Measurement {
+    google.protobuf.Any value = 1; // The magnitude of the measurement
+    string unitOfMeasure = 2; // The unit of measurement
+  };
+};
+
+/**
+ * Transmission through SubEtha
+ */
+message IntergalacticMessage {
+  string recipientUUID = 1; // The UUID of the recipient
+  string originUUID = 2; // The UUID of the originating entity
+  string messageType = 3; // The form of the message
+  google.protobuf.Any messageContent = 4; // The content of the message
+};
