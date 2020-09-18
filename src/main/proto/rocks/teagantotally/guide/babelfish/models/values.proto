@@ -36,4 +36,5 @@ message IntergalacticMessage {
   string originUUID = 3; // The UUID of the originating entity
   string messageType = 4; // The form of the message
   google.protobuf.Any messageContent = 5; // The content of the message
+  bool someoneElseProblem = 6; // I don't see anything, not my problem
 };

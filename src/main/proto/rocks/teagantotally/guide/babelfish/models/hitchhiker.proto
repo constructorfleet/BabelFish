@@ -32,6 +32,13 @@ message Hitchhiker {
 };
 
 /**
+ * A list of hitchhikers
+ */
+message PeskyStowaways {
+  repeated Hitchhiker hitchhikers = 1; // The hitchhikers in the collection
+}
+
+/**
  * Represents the ship the hitchhiker snuck on to
  */
 message Ship {
@@ -60,3 +67,10 @@ message Ship {
     ENTANGLED = 3; // Data is flowing to and from the ship
   };
 };
+
+/**
+ * A collection of ships
+ */
+message Fleet {
+  repeated Ship ships = 1; // The list of ships in the squadron
+}
