@@ -2,7 +2,14 @@ syntax = "proto3";
 
 import "google/protobuf/any.proto";
 
-package rocks.teagantotally.guide.babelfish;
+package rocks.teagantotally.guide.babelfish.models;
+
+// Java
+option java_package = "rocks.teagantotally.guide.babelfish.models";
+option java_outer_classname = "ValuesProto";
+
+// C#
+option csharp_namespace = "rocks.teagantotally.guide.babelfish.models";
 
 /**
  * Attribute name-value pair
@@ -24,8 +31,9 @@ message KeyValuePair {
  * Transmission through SubEtha
  */
 message IntergalacticMessage {
-  string recipientUUID = 1; // The UUID of the recipient
-  string originUUID = 2; // The UUID of the originating entity
-  string messageType = 3; // The form of the message
-  google.protobuf.Any messageContent = 4; // The content of the message
+  string uuid = 1; // The unique identifier of the message
+  string recipientUUID = 2; // The UUID of the recipient
+  string originUUID = 3; // The UUID of the originating entity
+  string messageType = 4; // The form of the message
+  google.protobuf.Any messageContent = 5; // The content of the message
 };
